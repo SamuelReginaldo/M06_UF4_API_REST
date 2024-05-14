@@ -4,10 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="VIDEOJOCS")
 public class Videojoc implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private Long id;
+	
 	private String nom;
 	private String genero;
 	private Double precio;

@@ -15,16 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.samuel_reginaldo.gestioVideojocs.backend.business.model.Videojoc;
+import com.samuel_reginaldo.gestioVideojocs.backend.business.model.dtos.Videojoc1DTO;
 import com.samuel_reginaldo.gestioVideojocs.backend.business.services.*;
 import com.samuel_reginaldo.gestioVideojocs.backend.presentation.config.RespostaError;
-import com.samuel_reginaldo.gestioVideojocs.backend.business.model.Videojoc;
 
 @RestController
-//@RequestMapping("/videojocs")
+@RequestMapping("/videojocs")
 public class VideojocController {
 
 	@Autowired

@@ -5,10 +5,15 @@ import java.util.Optional;
 
 import com.samuel_reginaldo.gestioVideojocs.backend.business.model.Videojoc;
 
-
 public interface VideojocServices {
 
-	Long create(Videojoc videojoc);	    // C
+	/**
+	 * Devuelve el código que ha otorgado el sistema
+	 * 
+	 * Lanza una IllegalStateException si el código del producto no es null
+	 * 
+	 */
+	Long create(Videojoc producto);	    // C
 	
 	Optional<Videojoc> read(Long id);   // R
 	
@@ -17,7 +22,7 @@ public interface VideojocServices {
 	 * Lanza una IllegalStateException si el código del producto es null o no existe en el sistema
 	 * 
 	 */
-	void update(Videojoc videojoc);		// U
+	void update(Videojoc producto);		// U
 	
 	/**
 	 * Lanza una IllegalStateException si no existe la id en el sistema
@@ -25,8 +30,7 @@ public interface VideojocServices {
 	 */
 	void delete(Long id);				// D
 	
-	List<Videojoc> getBetweenPriceRange(double min, double max);
-	
 	List<Videojoc> getAll();
+	List<Videojoc> getBetweenPriceRange(double min, double max);
 	
 }

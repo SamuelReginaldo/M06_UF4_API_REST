@@ -1,7 +1,8 @@
 package com.samuel_reginaldo.gestioVideojocs.backend.presentation.config;
 
-public class RespostaError {
+import java.io.Serializable;
 
+public class RespostaError implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String error;
@@ -15,3 +16,4 @@ public class RespostaError {
 	}
 	
 }
+
