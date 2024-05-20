@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "4cd72876-dd58-46ce-985c-e4089165ed97",
+		"name": "GESTION_VIDEOJOCS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1059617"
+	},
+	"item": [
+		{
+			"name": "Videojocs",
+			"item": [
+				{
+					"name": "Obtener listado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/videojocs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"videojocs"
+							],
+							"query": [
+								{
+									"key": "min",
+									"value": "60",
+									"disabled": true
+								},
+								{
+									"key": "max",
+									"value": "400",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por código",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/videojocs/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"videojocs",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Videojoc POSTMAN\",\r\n    \"genero\": \"Videojoc creado desde Postman\",\r\n    \"precio\": 24000.0,\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/videojocs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"videojocs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar por código",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/videojocs/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"videojocs",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 10,\r\n    \"nombre\": \"Ordenador Epson D34 ULTIMA ACTUALIZACION\",\r\n    \"genero\": \"Ordenador potente potente *****\",\r\n    \"precio\": 666.0,\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/videojocs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"videojocs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
