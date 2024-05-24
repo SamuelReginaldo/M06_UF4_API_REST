@@ -10,19 +10,19 @@ public interface VideojocServices {
 	/**
 	 * Devuelve el código que ha otorgado el sistema
 	 * 
-	 * Lanza una IllegalStateException si el código del producto no es null
+	 * Lanza una IllegalStateException si el código del videojoc no es null
 	 * 
 	 */
-	Long create(Videojoc producto);	    // C
+	Long create(Videojoc videojoc);	    // C
 	
 	Optional<Videojoc> read(Long id);   // R
 	
 	/**
 	 * 
-	 * Lanza una IllegalStateException si el código del producto es null o no existe en el sistema
+	 * Lanza una IllegalStateException si el código del videojoc es null o no existe en el sistema
 	 * 
 	 */
-	void update(Videojoc producto);		// U
+	void update(Videojoc videojoc);		// U
 	
 	/**
 	 * Lanza una IllegalStateException si no existe la id en el sistema

@@ -12,9 +12,9 @@
 	</parent>
 	
 	<groupId>com.rauxasoft</groupId>
-	<artifactId>gestionproductos</artifactId>
+	<artifactId>gestionvideojocs</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gestionproductos</name>
+	<name>gestionvideojocs</name>
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>

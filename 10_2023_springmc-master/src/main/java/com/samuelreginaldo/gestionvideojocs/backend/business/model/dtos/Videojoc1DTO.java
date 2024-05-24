@@ -23,7 +23,7 @@ public class Videojoc1DTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Producto1DTO [name=" + name + ", precio=" + precio + "]";
+		return "Videojoc1DTO [name=" + name + ", precio=" + precio + "]";
 	}
 	
 

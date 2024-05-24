@@ -1,4 +1,4 @@
-package com.samuel_reginaldo.gestionvideojocs.backend.integration.repositories;
+package com.samuelreginaldo.gestionvideojocs.backend.integration.repositories;
 
 import java.util.List;
 
@@ -21,12 +21,12 @@ import com.samuelreginaldo.gestionvideojocs.backend.integration.repositores.Vide
 public class VideojocRepositoryTest {
 
 	@Autowired
-	private VideojocRepository productoRepository;
+	private VideojocRepository videojocRepository;
 	
-	private Videojoc producto1;
-	private Videojoc producto2;
-	private Videojoc producto3;
-	private Videojoc producto4;
+	private Videojoc videojoc1;
+	private Videojoc videojoc2;
+	private Videojoc videojoc3;
+	private Videojoc videojoc4;
 	
 	@BeforeEach
 	void init() {
@@ -34,24 +34,24 @@ public class VideojocRepositoryTest {
 	}
 	
 	@Test
-	void obtenemos_productos_entre_rango_de_precios_en_orden_ascendente() {
+	void obtenemos_videojocs_entre_rango_de_precios_en_orden_ascendente() {
 		
-		List<Videojoc> productos = productoRepository.findByPrecioBetweenOrderByPrecioAsc(20.0, 500.0);
+		List<Videojoc> videojocs = videojocRepository.findByPrecioBetweenOrderByPrecioAsc(20.0, 500.0);
 		
-		assertEquals(2, productos.size());
+		assertEquals(2, videojocs.size());
 			
-		assertTrue(producto4.equals(productos.get(0)));
-		assertTrue(producto1.equals(productos.get(1)));
+		assertTrue(videojoc1.equals(videojocs.get(0)));
+		assertTrue(videojoc2.equals(videojocs.get(1)));
 		
 	}
 	
 	@Test
-	void obtenemos_todos_los_Producto1DTO() {
+	void obtenemos_todos_los_Videojoc1DTO() {
 		
-		List<Videojoc1DTO> productos1DTO = productoRepository.getAllProducto1DTO();
+		List<Videojoc1DTO> videojocs1DTO = videojocRepository.getAllVideojoc1DTO();
 		
-		for(Videojoc1DTO producto1DTO: productos1DTO) {
-			System.err.println(producto1DTO);
+		for(Videojoc1DTO videojoc1DTO: videojocs1DTO) {
+			System.err.println(videojoc1DTO);
 		}
 	}
 	
@@ -63,15 +63,15 @@ public class VideojocRepositoryTest {
 	
 	private void initObjects() {
 		
-		producto1 = new Videojoc();
-		producto2 = new Videojoc();
-		producto3 = new Videojoc();
-		producto4 = new Videojoc();
+		videojoc1 = new Videojoc();
+		videojoc2 = new Videojoc();
+		videojoc3 = new Videojoc();
+		videojoc4 = new Videojoc();
 		
-		producto1.setId(100L);
-		producto2.setId(101L);
-		producto3.setId(102L);
-		producto4.setId(103L);
+		videojoc1.setId(100L);
+		videojoc2.setId(101L);
+		videojoc3.setId(102L);
+		videojoc4.setId(103L);
 		
 	}
 	

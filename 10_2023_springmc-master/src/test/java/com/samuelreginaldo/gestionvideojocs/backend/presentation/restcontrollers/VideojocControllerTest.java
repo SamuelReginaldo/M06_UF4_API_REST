@@ -1,4 +1,4 @@
-package com.samuel_reginaldo.gestionvideojocs.backend.presentation.restcontrollers;
+package com.samuelreginaldo.gestionvideojocs.backend.presentation.restcontrollers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -40,10 +41,10 @@ public class VideojocControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@MockBean
-	private VideojocServices productoServices;
+	private VideojocServices videojocServices;
 	
-	private Videojoc producto1;
-	private Videojoc producto2;
+	private Videojoc videojoc1;
+	private Videojoc videojoc2;
 	
 	@BeforeEach
 	void init() {
@@ -51,21 +52,21 @@ public class VideojocControllerTest {
 	}
 	
 	@Test
-	void pedimos_todos_los_productos() throws Exception {
+	void pedimos_todos_los_videojocs() throws Exception {
 		
 		// Arrange
 		
-		List<Videojoc> productos = Arrays.asList(producto1, producto2);
-		when(productoServices.getAll()).thenReturn(productos);
+		List<Videojoc> videojocs = Arrays.asList(videojoc1, videojoc2);
+		when(videojocServices.getAll()).thenReturn(videojocs);
 		
 		// Act
 		
-		MvcResult respuesta = miniPostman.perform(get("/productos").contentType("application/json"))
+		MvcResult respuesta = miniPostman.perform(get("/videojocs").contentType("application/json"))
 											.andExpect(status().isOk())
 											.andReturn();
 		
 		String responseBody = respuesta.getResponse().getContentAsString();
-		String respuestaEsperada = objectMapper.writeValueAsString(productos);
+		String respuestaEsperada = objectMapper.writeValueAsString(videojocs);
 		
 		// Assert
 		
@@ -74,77 +75,77 @@ public class VideojocControllerTest {
 	}
 	
 	@Test
-	void pedimos_todos_los_productos_entre_rango_precios() throws Exception {
+	void pedimos_todos_los_videojocs_entre_rango_precios() throws Exception {
 				
-		List<Videojoc> productos = Arrays.asList(producto1, producto2);
-		when(productoServices.getBetweenPriceRange(10, 500)).thenReturn(productos);
+		List<Videojoc> videojocs = Arrays.asList(videojoc1, videojoc2);
+		when(videojocServices.getBetweenPriceRange(10, 500)).thenReturn(videojocs);
 			
-		MvcResult respuesta = miniPostman.perform(get("/productos").param("min", "10")
+		MvcResult respuesta = miniPostman.perform(get("/videojocs").param("min", "10")
 																   .param("max","500")
 																   .contentType("application/json"))
 											.andExpect(status().isOk())
 											.andReturn();
 		
 		String responseBody = respuesta.getResponse().getContentAsString();
-		String respuestaEsperada = objectMapper.writeValueAsString(productos);
+		String respuestaEsperada = objectMapper.writeValueAsString(videojocs);
 		
 		assertThat(responseBody).isEqualToIgnoringWhitespace(respuestaEsperada);
 		
 	}
 	
 	@Test
-	void obtenemos_producto_a_partir_de_su_id() throws Exception{
+	void obtenemos_videojoc_a_partir_de_su_id() throws Exception{
 		
-		when(productoServices.read(100L)).thenReturn(Optional.of(producto1));
+		when(videojocServices.read(100L)).thenReturn(Optional.of(videojoc1));
 		
-		MvcResult respuesta = miniPostman.perform(get("/productos/100").contentType("application/json"))
+		MvcResult respuesta = miniPostman.perform(get("/videojocs/100").contentType("application/json"))
 									.andExpect(status().isOk())
 									.andReturn();
 		
 		String responseBody = respuesta.getResponse().getContentAsString();
-		String respuestaEsperada = objectMapper.writeValueAsString(producto1);
+		String respuestaEsperada = objectMapper.writeValueAsString(videojoc1);
 		
 		assertThat(responseBody).isEqualToIgnoringWhitespace(respuestaEsperada);
 	
 	}
 	
 	@Test
-	void solicitamos_producto_a_partir_de_un_id_inexistente() throws Exception {
+	void solicitamos_videojoc_a_partir_de_un_id_inexistente() throws Exception {
 		
-		when(productoServices.read(100L)).thenReturn(Optional.empty());
+		when(videojocServices.read(100L)).thenReturn(Optional.empty());
 		
-		MvcResult respuesta = miniPostman.perform(get("/productos/100").contentType("application/json"))
+		MvcResult respuesta = miniPostman.perform(get("/videojocs/100").contentType("application/json"))
 									.andExpect(status().isNotFound())
 									.andReturn();
 		
 		String responseBody = respuesta.getResponse().getContentAsString();
-		String respuestaEsperada = objectMapper.writeValueAsString(new RespuestaError("No se encuentra el producto con id 100"));
+		String respuestaEsperada = objectMapper.writeValueAsString(new RespuestaError("No se encuentra el videojoc con id 100"));
 		
 		assertThat(responseBody).isEqualToIgnoringWhitespace(respuestaEsperada);
 	}
 	
 	@Test
-	void crea_producto_ok() throws Exception {
+	void crea_videojoc_ok() throws Exception {
 		
-		producto1.setId(null);
+		videojoc1.setId(null);
 		
-		when(productoServices.create(producto1)).thenReturn(1033L);
+		when(videojocServices.create(videojoc1)).thenReturn(1033L);
 		
-		String requestBody = objectMapper.writeValueAsString(producto1);
+		String requestBody = objectMapper.writeValueAsString(videojoc1);
 		
-		miniPostman.perform(post("/productos").content(requestBody).contentType("application/json"))
+		miniPostman.perform(post("/videojocs").content(requestBody).contentType("application/json"))
 						.andExpect(status().isCreated())
-						.andExpect(header().string("Location","http://localhost/productos/1033"));
+						.andExpect(header().string("Location","http://localhost/videojocs/1033"));
 	}
 	
 	@Test
-	void crear_producto_con_id_NO_NULL() throws Exception{
+	void crear_videojoc_con_id_NO_NULL() throws Exception{
 		
-		when(productoServices.create(producto1)).thenThrow(new IllegalStateException("Problema con el id..."));
+		when(videojocServices.create(videojoc1)).thenThrow(new IllegalStateException("Problema con el id..."));
 		
-		String requestBody = objectMapper.writeValueAsString(producto1);
+		String requestBody = objectMapper.writeValueAsString(videojoc1);
 		
-		MvcResult respuesta = miniPostman.perform(post("/productos").content(requestBody).contentType("application/json"))
+		MvcResult respuesta = miniPostman.perform(post("/videojocs").content(requestBody).contentType("application/json"))
 						.andExpect(status().isBadRequest())
 						.andReturn();
 		
@@ -155,24 +156,24 @@ public class VideojocControllerTest {
 	}
 	
 	@Test
-	void eliminamos_producto_ok() throws Exception{
+	void eliminamos_videojoc_ok() throws Exception{
 		
-		miniPostman.perform(delete("/productos/789")).andExpect(status().isNoContent());
+		miniPostman.perform(delete("/videojocs/789")).andExpect(status().isNoContent());
 		
-		verify(productoServices, times(1)).delete(789L);
+		verify(videojocServices, times(1)).delete(789L);
 	}
 	
 	@Test
-	void eliminamos_producto_no_existente() throws Exception{
+	void eliminamos_videojoc_no_existente() throws Exception{
 		
-		Mockito.doThrow(new IllegalStateException("xxxx")).when(productoServices).delete(789L);
+		Mockito.doThrow(new IllegalStateException("xxxx")).when(videojocServices).delete(789L);
 		
-		MvcResult respuesta = miniPostman.perform(delete("/productos/789"))
+		MvcResult respuesta = miniPostman.perform(delete("/videojocs/789"))
 								.andExpect(status().isNotFound())
 								.andReturn();
 		
 		String responseBody = respuesta.getResponse().getContentAsString();
-		String respuestaEsperada = objectMapper.writeValueAsString(new RespuestaError("No se encuentra el producto con id [789]. No se ha podido eliminar."));
+		String respuestaEsperada = objectMapper.writeValueAsString(new RespuestaError("No se encuentra el videojoc con id [789]. No se ha podido eliminar."));
 		
 		assertThat(responseBody).isEqualToIgnoringWhitespace(respuestaEsperada);
 		
@@ -186,17 +187,17 @@ public class VideojocControllerTest {
 	
 	private void initObjects() {
 		
-		producto1 = new Videojoc();
-		producto1.setId(100L);
-		producto1.setNombre("Final Fantasy VII");
-		producto1.setGenero("JRPG");
-		producto1.setPrecio(20.0);
+		videojoc1 = new Videojoc();
+		videojoc1.setId(100L);
+		videojoc1.setNombre("Final Fantasy VII");
+		videojoc1.setGenero("JRPG");
+		videojoc1.setPrecio(20.0);
 		
-		producto2 = new Videojoc();
-		producto2.setId(101L);
-		producto2.setNombre("Tekken 8");
-		producto2.setGenero("3D Fighter");
-		producto2.setPrecio(60.0);
+		videojoc2 = new Videojoc();
+		videojoc2.setId(101L);
+		videojoc2.setNombre("Tekken 8");
+		videojoc2.setGenero("3D Fighter");
+		videojoc2.setPrecio(60.0);
 		
 	}
 	

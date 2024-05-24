@@ -104,7 +104,7 @@ public class Videojoc implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", genero=" + genero + ", precio=" + precio
+		return "Videojoc [id=" + id + ", nombre=" + nombre + ", genero=" + genero + ", precio=" + precio
 				+  "]";
 	}
 	

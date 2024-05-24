@@ -18,7 +18,7 @@ public class SwaggerConfig {
 		
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.rauxasoft.gestionproductos.backend.presentation.restcontrollers"))
+				.apis(RequestHandlerSelectors.basePackage("com.samuelreginaldo.gestionvidojocs.backend.presentation.restcontrollers"))
 				.paths(PathSelectors.any())
 				.build();	
 	}

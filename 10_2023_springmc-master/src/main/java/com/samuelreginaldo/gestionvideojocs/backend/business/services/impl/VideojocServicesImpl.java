@@ -16,62 +16,62 @@ import com.samuelreginaldo.gestionvideojocs.backend.integration.repositores.Vide
 public class VideojocServicesImpl implements VideojocServices{
 
 	@Autowired
-	private VideojocRepository productoRepository;
+	private VideojocRepository videojocRepository;
 	
 	@Override
 	@Transactional
-	public Long create(Videojoc producto) {
+	public Long create(Videojoc videojoc) {
 		
-		if(producto.getId() != null) {
+		if(videojoc.getId() != null) {
 			throw new IllegalStateException("No se puede crear un videojuego con código not null");
 		}
 		
 		Long id = System.currentTimeMillis();
-		producto.setId(id);
+		videojoc.setId(id);
 		
-		productoRepository.save(producto);
+		videojocRepository.save(videojoc);
 		
 		return id;
 	}
 
 	@Override
 	public Optional<Videojoc> read(Long id) {	
-		return productoRepository.findById(id);
+		return videojocRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
-	public void update(Videojoc producto) {
+	public void update(Videojoc videojoc) {
 		
-		Long id = producto.getId();
+		Long id = videojoc.getId();
 		
 		if(id == null) {
 			throw new IllegalStateException("No se puede actualizar un videojuego con código not null");
 		}
 		
-		boolean existe = productoRepository.existsById(id);
+		boolean existe = videojocRepository.existsById(id);
 		
 		if(!existe) {
 			throw new IllegalStateException("El videojuego con código " + id + " no existe. No se puede actualizar.");
 		}
 		
-		productoRepository.save(producto);
+		videojocRepository.save(videojoc);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		productoRepository.deleteById(id);
+		videojocRepository.deleteById(id);
 	}
 
 	@Override
 	public List<Videojoc> getAll() {
-		return productoRepository.findAll();
+		return videojocRepository.findAll();
 	}
 
 	@Override
 	public List<Videojoc> getBetweenPriceRange(double min, double max) {
-		return productoRepository.findByPrecioBetweenOrderByPrecioAsc(min, max);
+		return videojocRepository.findByPrecioBetweenOrderByPrecioAsc(min, max);
 	}
 
 }

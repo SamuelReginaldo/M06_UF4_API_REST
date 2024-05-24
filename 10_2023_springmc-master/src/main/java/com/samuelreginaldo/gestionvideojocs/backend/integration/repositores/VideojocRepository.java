@@ -17,7 +17,7 @@ public interface VideojocRepository extends JpaRepository<Videojoc, Long>{
 		   + "        p.genero), "
 		   + "        p.precio) "
 		   + "FROM Videojoc p")
-	List<Videojoc1DTO> getAllProducto1DTO();
+	List<Videojoc1DTO> getAllVideojoc1DTO();
 	
 	
 }

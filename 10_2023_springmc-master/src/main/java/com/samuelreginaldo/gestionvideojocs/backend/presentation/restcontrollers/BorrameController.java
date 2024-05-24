@@ -10,10 +10,10 @@ import com.samuelreginaldo.gestionvideojocs.backend.integration.repositores.Vide
 public class BorrameController {
 
 	@Autowired
-	private VideojocRepository productoRepository;
+	private VideojocRepository videojocRepository;
 	
 	@GetMapping("/dto1")
-	public Object getProducto1DTO() {
-		return productoRepository.getAllProducto1DTO();
+	public Object getVideojoc1DTO() {
+		return videojocRepository.getAllVideojoc1DTO();
 	}
 }

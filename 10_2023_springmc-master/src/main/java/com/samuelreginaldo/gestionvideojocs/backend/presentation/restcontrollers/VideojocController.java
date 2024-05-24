@@ -24,51 +24,51 @@ import com.samuelreginaldo.gestionvideojocs.backend.business.services.VideojocSe
 import com.samuelreginaldo.gestionvideojocs.backend.presentation.config.PresentationException;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("/videojocs")
 public class VideojocController {
 
 	@Autowired
-	private VideojocServices productoServices;
+	private VideojocServices videojocServices;
 		
 	@GetMapping
 	public List<Videojoc> getAll(@RequestParam(name = "min", required = false) Double min, 
 								 @RequestParam(name = "max", required = false) Double max){
 		
-		List<Videojoc> productos = null;
+		List<Videojoc> videojocs = null;
 		
 		if(min != null && max != null) {
-			productos = productoServices.getBetweenPriceRange(min, max);
+			videojocs = videojocServices.getBetweenPriceRange(min, max);
 		} else {
-			productos = productoServices.getAll();
+			videojocs = videojocServices.getAll();
 		}
 			
-		return productos;
+		return videojocs;
 	}
 		
 	@GetMapping("/{id}")
 	public Videojoc read(@PathVariable Long id) {
 		
-		Optional<Videojoc> optional = productoServices.read(id);
+		Optional<Videojoc> optional = videojocServices.read(id);
 		
 		if(!optional.isPresent()) {
-			throw new PresentationException("No se encuentra el producto con id " + id, HttpStatus.NOT_FOUND);
+			throw new PresentationException("No se encuentra el videojoc con id " + id, HttpStatus.NOT_FOUND);
 		}
 		
 		return optional.get();
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody Videojoc producto, UriComponentsBuilder ucb) {
+	public ResponseEntity<?> create(@RequestBody Videojoc videojoc, UriComponentsBuilder ucb) {
 		
 		Long codigo = null;
 		
 		try {
-			codigo = productoServices.create(producto);
+			codigo = videojocServices.create(videojoc);
 		} catch(IllegalStateException e) {
 			throw new PresentationException(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		
-		URI uri = ucb.path("/productos/{codigo}").build(codigo);
+		URI uri = ucb.path("/videojocs/{codigo}").build(codigo);
 		
 		return ResponseEntity.created(uri).build();
 	}
@@ -78,19 +78,19 @@ public class VideojocController {
 	public void delete(@PathVariable Long id) {
 		
 		try {
-			productoServices.delete(id);
+			videojocServices.delete(id);
 		} catch(IllegalStateException e) {
-			throw new PresentationException("No se encuentra el producto con id [" + id + "]. No se ha podido eliminar.", HttpStatus.NOT_FOUND);
+			throw new PresentationException("No se encuentra el videojoc con id [" + id + "]. No se ha podido eliminar.", HttpStatus.NOT_FOUND);
 		}
 		
 	}
 	
 	@PutMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@RequestBody Videojoc producto) {
+	public void update(@RequestBody Videojoc videojoc) {
 		
 		try {
-			productoServices.update(producto);
+			videojocServices.update(videojoc);
 		} catch(IllegalStateException e) {
 			throw new PresentationException(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
